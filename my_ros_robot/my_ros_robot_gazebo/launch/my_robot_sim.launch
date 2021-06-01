@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+   
+    
+    <param name="robot_description" command="$(find xacro)/xacro $(find my_ros_robot_description)/urdf/my_ros_robot.xacro"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" />
+   
+        
+ 
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_ros_robot_description)/rviz/display.rviz"/>
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"  respawn= "false" output="screen" args="-urdf -param robot_description -model my_robot -x 0 -y 0 -z 0.5"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">  
+     <arg name="world_name" value="$(find my_ros_robot_gazebo)/world/hell_3.world"/>
+    
+   
+    </include>
+</launch>
+ 
